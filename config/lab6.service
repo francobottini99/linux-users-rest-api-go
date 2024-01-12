@@ -1,0 +1,12 @@
+[Unit]
+Description=Lab6
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/lab6
+User=root
+Group=sudo
+Restart=always
+
+[Install]
+WantedBy=default.target

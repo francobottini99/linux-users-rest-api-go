@@ -1,0 +1,4 @@
+/.vscode
+users.db
+go.*
+/bin
