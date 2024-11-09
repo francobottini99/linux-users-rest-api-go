@@ -1,13 +1,13 @@
-# API REST en Go
+# REST API in Go
 
-El programa crea dos servicios web utilizando el framework Gin: un servicio de usuarios y un servicio de procesamiento. Estos servicios se ejecutan en puertos diferentes y tienen diferentes rutas y controladores asociados. El programa también configura archivos de registro y redirige la salida estándar y la salida de error a estos archivos.
+The program creates two web services using the Gin framework: a user service and a processing service. These services run on different ports and have different routes and associated controllers. The program also configures log files and redirects the standard output and error output to these files.
 
-### Autores:
+### Authors:
 - **Bottini, Franco Nicolas**
 
-### ¿ Como compilar ?
+### How to compile?
 
-Se puede compilar y ejecutar el programa utilizando el archivo Makefile de la siguiente manera:
+You can compile and run the program using the Makefile as follows:
 
 ```bash
 $ git clone https://github.com/francobottini99/APIRESTGO-2023.git
@@ -15,34 +15,34 @@ $ cd APIRESTGO-2023
 $ sudo make install
 ```
 
-Esto genera el binario y lo ejcuta como un servicio utilizando `systemd`, ademas configura el programa `nginx` para que redirija las solicitudes a los servicios web correspondientes.
+This generates the binary and runs it as a service using `systemd`, as well as configuring the `nginx` program to redirect requests to the appropriate web services.
 
 > [!NOTE]
-> Para compilar el proyecto es necesario tener instalado `Go`, `systemd` y `nginx` en el equipo.
+> To compile the project, you need to have `Go`, `systemd`, and `nginx` installed on the system.
 
-Para verificar que el programa se ejecuto correctamente se puede utilizar el comando:
+To verify that the program ran successfully, you can use the command:
 
 ```bash
 $ systemctl status lab6
 ```
 
-Finalmente, si se desea desinstalar el programa y eliminar todos los archivos generados, se puede utilizar el comando:
+Finally, if you want to uninstall the program and remove all generated files, you can use the command:
 
 ```bash
 $ sudo make uninstall
 ```
 
-## Servicios
+## Services
 
-Los servicios web se ejecutan sobre los puertos `8555` y `85556` y se puede acceder a ellos a traves de los dominios `dashboard.com` y `sensors.com` respectivamente. Para hacer uso de los *end points* expuestos por los servicios es necesario enviar un token `JWT` en el *header* *"Authorization"* de la solicitud. El token se obtiene al loguearse en el servicio de usuarios.
+The web services run on ports `8555` and `85556`, and they can be accessed via the domains `dashboard.com` and `sensors.com` respectively. To use the endpoints exposed by the services, a `JWT` token must be sent in the "Authorization" header of the request. The token can be obtained by logging into the user service.
 
-### Servicio de Usuarios
+### User Service
 
-El servicio de usuarios se ejecuta sobre el puerto `8555` y se puede acceder a el atraves del dominio `dashboard.com`. Expone tres *end points* que permiten crear nuevos usuarios, loguearse y obtener un listado de los usuarios existentes. Los *end points* son: `api/users/createuser`, `api/users/login` y `api/users/listall`.
+The user service runs on port `8555` and can be accessed through the domain `dashboard.com`. It exposes three endpoints that allow creating new users, logging in, and getting a list of existing users. The endpoints are: `api/users/createuser`, `api/users/login`, and `api/users/listall`.
 
 #### **api/users/login**
 
-Este *end point* permite validar a un usuario existente en el sistema. Para ello, se debe enviar una solicitud *POST* con el siguiente formato:
+This endpoint allows validating an existing user in the system. To do so, send a *POST* request with the following format:
 
 ```json
 {
@@ -51,7 +51,7 @@ Este *end point* permite validar a un usuario existente en el sistema. Para ello
 }
 ```
 
-Si las credenciales corresponden con un usuario del sistema obtendremos como respuesta un token `JWT` que nos permitirá hacer uso de los demas *end point* del servidor.
+If the credentials match a user in the system, the response will include a `JWT` token that allows using other endpoints on the server.
 
 ```json
 {
@@ -62,7 +62,7 @@ Si las credenciales corresponden con un usuario del sistema obtendremos como res
 
 #### **api/users/createuser**
 
-Este *end point* permite crear un nuevo usuario en el sistema. Para ello, se debe enviar una solicitud *POST* con el siguiente formato:
+This endpoint allows creating a new user in the system. To do so, send a *POST* request with the following format:
 
 ```json
 {
@@ -71,7 +71,7 @@ Este *end point* permite crear un nuevo usuario en el sistema. Para ello, se deb
 }
 ```
 
-Si el resultado de la creación es exitoso, obtendremos como respuesta la información del nuevo usuario generado.
+If the creation is successful, the response will contain the information of the newly created user.
 
 ```json
 {
@@ -81,13 +81,13 @@ Si el resultado de la creación es exitoso, obtendremos como respuesta la inform
 }
 ```
 
-Los usuarios creados por medio de este *end point* estan habilitados para acceder al servidor por medio de `ssh`. 
+Users created via this endpoint are enabled to access the server via `ssh`.
 
 #### **api/users/listall**
 
-Este *end point* permite obtener un listado de todos los usuarios registrados en el sistema. Para ello, se debe enviar una solicitud *GET* al mismo.
+This endpoint allows retrieving a list of all registered users in the system. To do so, send a *GET* request.
 
-Obtenemos como respuesta un listado con la información de todos los usuarios registrados en el sistema.
+The response will include a list with the information of all registered users.
 
 ```json
 [
@@ -104,13 +104,13 @@ Obtenemos como respuesta un listado con la información de todos los usuarios re
 ]
 ```
 
-### Servicio de Procesamiento
+### Processing Service
 
-El servicio de procesamiento se ejecuta sobre el puerto `8556` y se puede acceder a el a traves del dominio `sensors.com`. Expone dos *end points* que permiten subscribir información de los sensores y obtener la información de los mismos. Los *end points* son: `api/sensors/submit` y `api/sensors/summary`.
+The processing service runs on port `8556` and can be accessed via the domain `sensors.com`. It exposes two endpoints that allow submitting sensor information and retrieving sensor data. The endpoints are: `api/sensors/submit` and `api/sensors/summary`.
 
 #### **api/sensors/submit**
 
-Este *end point* permite subscribir información de los sensores. Para ello, se debe enviar una solicitud *POST* con el siguiente formato:
+This endpoint allows submitting sensor information. To do so, send a *POST* request with the following format:
 
 ```json
 {
@@ -120,7 +120,7 @@ Este *end point* permite subscribir información de los sensores. Para ello, se 
 }
 ```
 
-Si el resultado de la subscripción es exitoso, obtendremos como respuesta un mensaje de confirmación.
+If the submission is successful, the response will include a confirmation message.
 
 ```json
 {
@@ -130,9 +130,9 @@ Si el resultado de la subscripción es exitoso, obtendremos como respuesta un me
 
 #### **api/sensors/summary**
 
-Este *end point* permite obtener la información de los sensores. Para ello, se debe enviar una solicitud *GET* al mismo.
+This endpoint allows retrieving sensor information. To do so, send a *GET* request.
 
-Obtenemos como respuesta un listado con la información de los sensores.
+The response will include a list with sensor information.
 
 ```json
 [
@@ -140,16 +140,16 @@ Obtenemos como respuesta un listado con la información de los sensores.
         "id": 1,
         "processing": 0.235,
         "free_memory": 546,
-        "swap": 32532,
+        "swap": 32532
     },
     {
         "id": 2,
         "processing": 0.2443,
         "free_memory": 3432,
-        "swap": 3532,
+        "swap": 3532
     }
 ]
 ```
 
 > [!NOTE]
-> Para hacer uso de este *end point* no es necesario el token de autentificación.
+> No authentication token is required to use this endpoint.
